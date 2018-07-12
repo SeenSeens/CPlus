@@ -34,3 +34,6 @@ void main()
 	printf("Ket qua: %d", T(n) );
 	_getch();
 }
+
+
+//aksjdhkajshdashdkljsahdkljsahdsad
