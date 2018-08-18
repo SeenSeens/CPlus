@@ -134,12 +134,117 @@ Ex: Nhập xuất cho 1 sinh viên
 		Nhap1SV(&sv);
 		Xuat1SV(sv);
 	}
+
+Lưu ý: Trong C đối với các thành phần KHÔNG NGUYÊN của kiểu cấu trúc ta không thể sử dụng toán tử lấy địa chỉ. Do đó trong ví dụ trên vì thành phần diem của cấu trúc SinhVien có kiểu thực nên ta không thể dùng hàm scanf() để nhập trực tiếp vào thành phần này.
+
+Ex: Nhập xuất danh sách sinh viên
+	#define SIZE 20
+	struct DSSV
+	{
+		int n; // Số sinh viên
+		SinhVien arr[SIZE]; // Mảng các sinh viên
+	};
+// Khai báo các nguyên mẫu hàm
+void Nhap1SV(SinhVien *u);
+void Xuat1Sv(SinhVien u);
+void NhapDSSV(DSSV *u);
+void XuatDSSV(DSSV u);
+// Định nghĩa các hàm
+void NhapDSSV(DSSV *u)
+{
+	int i;
+	do
+	{
+		printf("Nhập số sinh viên: ");
+		scanf("%d", &u->n);
+		if (u->n<1 || u->n>SIZE) printf("Số sinh viên không hợp lệ, xin nhập lại!!!\n");
+	} while (u->n<1 || u->n>SIZE);
+	for (i = 0; i < u->n; i++)
+	{
+		printf("** Sinh viên thứ %d **\n", i);
+		Nhap1SV(&u->arr[i]);
+	}
+}
+void XuatDSSV(DSSV u)
+{
+	int i;
+	for (i = 0; i < u.n; i++)
+	{
+		Xuat1SV(u.arr[i]);
+	}
+}
+void main()
+{
+	DSSV dssv;
+	printf("Nhap danh sach sinh vien\n");
+	NhapDSSV(&dssv);
+	printf("Danh sách sinh viên vừa nhập");
+	XuatDSSV(dssv);
+}
 */
 
+/*
+7. Các thao tác cơ bản trên mảng cấu trúc
+Được xử lý tương tự như các thao tác trên mảng 1 chiều.
 
+Ex1: Tìm sinh viên có điểm cao nhất.
+	int TimSVDiemMax(DSSV u)
+	{
+		int i, ret = 0;
+		for (i = 0; i < u.n; i++)
+			if (u.arr[i].diem > u.arr[ret].diem)
+				ret = i;
+		return ret; // Trả về vị trí sinh viên có điểm cao nhất
+	}
 
+Ex2: Thêm 1 sinh viên sv vào danh sách tại vị trí vt
+	void Them(DSSV *u, int vt, SinhVien sv)
+	{
+		int i;
+		if (vt < 0 || vt > u->n) printf("Vi trí %d khong hop le\n", vt);
+		else
+		{
+			if (u->n == SIZE) printf("Danh sach da day\n");
+			else
+			{
+				for (i = u->n - 1; i >= vt; i--) u->arr[i + 1] = u->arr[i];
+				u->arr[vt] = sv;
+				u->n++;
+			}
+		}
+	}
 
+Ex3:  Xóa 1 sinh viên tại vị trí vt khỏi danh sách
+	void XoaDSSV(DSSV *u, int vt)
+	{
+		int i;
+		if (vt < 0 || vt >= u->n) printf("Vi tri %d khong hop le\n", vt);
+		else
+		{
+			if (u->n == 0) printf("Danh sach rong\n");
+			else
+			{
+				for (i = vt; i < u->n - 1; i++) u->arr[i] = u->arr[i + 1];
+				u->n--;
+			}
+		}
+	}
 
-
-
-
+Ex4: Sắp xếp danh sách sinh viên theo thứ tự tăng dần của mã sinh viên
+	void SapXep(DSSV *u)
+	{
+		int i, j;
+		for (i = 0; i < u->n-1; i++)
+			for (j = i + 1; j < u->n; j++)
+			{
+				// So sánh mã của sinh viên thứ i và sinh viên thứ j
+				if (strcmp(u->arr[i].ma, u->arr[j].ma > 0))
+				{
+					// Hoán vị u->arr[i] & u->arr[j]
+					SinhVien tam = u->arr[i];
+					u->arr[i] = u->arr[i];
+					u->arr[j] = tam;
+				}
+			}
+	}
+*/
